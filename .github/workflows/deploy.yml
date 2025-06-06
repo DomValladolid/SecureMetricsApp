@@ -3,7 +3,7 @@ name: Deploy to Azure Web App
 on:
   push:
     branches:
-      - main  # or 'master', depending on your default branch
+      - main
 
 jobs:
   build-and-deploy:
@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET SDK
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x'  # or 7.0.x, depending on your project
+        dotnet-version: '8.0.x'
 
     - name: Restore dependencies
       run: dotnet restore
@@ -30,6 +30,7 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
-        app-name: my-secure-metrics-app
+        app-name: my-secure-metrics-app  # ✅ This must match your Web App name in Azure
+        slot-name: production             # ✅ Optional, but recommended
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ./publish
