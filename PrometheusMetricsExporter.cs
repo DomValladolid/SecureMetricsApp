@@ -26,11 +26,11 @@ public class PrometheusMetricsExporter
 
             if (_helpText.TryGetValue(name, out var help))
             {
-                sb.AppendLine($"# HELP {name} {help}");
+                sb.Append("# HELP ").Append(name).Append(' ').Append(help).Append('\n');
             }
 
-            sb.AppendLine($"# TYPE {name} counter");
-            sb.AppendLine($"{name} {value}");
+            sb.Append("# TYPE ").Append(name).Append(" counter\n");
+            sb.Append(name).Append(' ').Append(value).Append('\n');
         }
 
         return sb.ToString();
